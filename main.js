@@ -1,61 +1,45 @@
-var mouseEvent = "empty";
-var lastPositionX, lastPositionY;
+canvas = document.getElementById("myCanvas");
+ctx= canvas.getContext("2d");
 
-    canvas = document.getElementById('myCanvas');
-    ctx = canvas.getContext("2d");
+color = "red"; 
+
+ctx.beginPath();
+ctx.strokeStyle = color;
+ctx.lineWidth = 2;
+ctx.arc(200, 200, 40 ,0 , 2*Math.PI);
+ctx.stroke();
+
+canvas.addEventListener("mousedown", myMousedown);
+
+function myMousedown(e)
+{
+    //obtém a cor da caixa de inserção
+    //início da atividade adicional
+    color = document.getElementById("color").value;
+    console.log(color);
+    //fim da atividade adicional
     
-    color = "black";
-    widthLine = 1;
-    canvas.addEventListener("mousedown", myMouseDown);
-    function myMouseDown(e)
-    {
-        //Addictonal Activity start
-        color = document.getElementById("color").value;
-        widthLine = document.getElementById("widthLine").value;
-        //Addictonal Activity ends
+     mouseX = e.clientX - canvas.offsetLeft;
+     mouseY = e.clientY - canvas.offsetTop;
 
-        mouseEvent = "mouseDown";
-    }
-
-    canvas.addEventListener("mousemove", myMouseMove);
-    function myMouseMove(e)
-    {
-        PositionMouseX = e.clientX - canvas.offsetLeft;
-        PositionMouseY = e.clientY - canvas.offsetTop;
-
-        if (mouseEvent == "mouseDown") {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = widthLine;
-
-        console.log("Last position of x and y coordinates = ");
-        console.log("x = " + lastPositionX + "y = " + lastPositionY);
-        ctx.moveTo(lastPositionX, lastPositionY);
-
-        console.log("Current position of x and y coordinates = ");
-        console.log("x  = " + PositionMouseX + "y = " + PositionMouseY);
-        ctx.lineTo(PositionMouseX, PositionMouseY);
-        ctx.stroke();
-        }
-
-        lastPositionX = PositionMouseX; 
-        lastPositionY = PositionMouseY;
-    }
-
-    canvas.addEventListener("mouseup", myMouseUp);
-    function myMouseUp(e)
-    {
-        mouseEvent = "mouseUP";
-    }
-
-    canvas.addEventListener("mouseleave", myMouseLeave);
-    function myMouseLeave(e)
-    {
-        mouseEvent = "mouseleave";
-    }
-
-
-//Additional Activity
-function clearArea() {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    console.log("X = " + mouseX + " ,Y =  " + mouseY);
+    circle(mouseX , mouseY);    
 }
+
+function circle(mouseX , mouseY)
+{
+ctx.beginPath();
+ctx.strokeStyle = color;
+ctx.lineWidth = 2;
+ctx.arc(mouseX ,mouseY, 40 ,0 , 2*Math.PI);
+ctx.stroke();
+}
+
+//atividade adicional
+
+function clearArea()
+{
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+	
